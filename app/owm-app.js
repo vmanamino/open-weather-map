@@ -15,7 +15,7 @@ angular.module('OWMApp', ['ngRoute'])
                             $location.path('/error');
                             return;
                         }
-                        return city;
+                    return city;
                     }
                 }
             })
@@ -34,6 +34,7 @@ angular.module('OWMApp', ['ngRoute'])
         .controller('HomeCtrl', ['$scope', function($scope) {
             //empty for now
         }])
-        .controller('CityCtrl', ['$scope', '$routeParams', function($scope, city) {
-            $scope.city = city.city;
+        .controller('CityCtrl', ['$scope', 'city', function($scope, city) {
+            console.log(city);
+            $scope.city = city;
         }]);
