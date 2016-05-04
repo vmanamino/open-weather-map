@@ -1,4 +1,4 @@
-angular.module('OWMApp', ['ngRoute'])
+angular.module('OWMApp', ['ngRoute', 'ngAnimate'])
     .config(['$routeProvider', function($routeProvider){
         $routeProvider
             .when('/', {
@@ -24,10 +24,18 @@ angular.module('OWMApp', ['ngRoute'])
             })
             .otherwise('/error');
     }])
-    .run(['$rootScope', '$location', function($rootScope, $location) {
+    .run(['$rootScope', '$location', '$timeout', function($rootScope, $location, $timeout) {
         'use strict';
         $rootScope.$on('$routeChangeError', function() {
             $location.path('/error');
+        });
+        $rootScope.$on('$routeChangeStart', function() {
+            $rootScope.isLoading = true;    
+        });
+        $rootScope.$on('$routeChangeSuccess', function() {
+           $timeout(function(){
+               $rootScope.isLoading = false;
+           }, 1000); 
         });
     }])
     .value('owmCities', ['New York', 'Dallas', 'Chicago'])
